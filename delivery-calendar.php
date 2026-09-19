@@ -3,7 +3,7 @@
  * Plugin Name: تقویم ارسال ووکامرس
  * Plugin URI: https://github.com/sahandse/delivery-calendar
  * Description: مدیریت تاریخ ارسال سفارش ووکامرس با تقویم شمسی/میلادی، تعطیلات، روز استراحت و قوانین هوشمند ارسال.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Sahand Rezvan
  * Author URI: https://github.com/sahandse
  * Text Domain: delivery-calendar
@@ -15,7 +15,7 @@
 defined('ABSPATH') || exit;
 
 final class DC_Plugin {
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
     const OPTION  = 'dc_settings';
     const META    = '_dc_delivery_date';
 
@@ -94,6 +94,10 @@ final class DC_Plugin {
     }
 
     public function admin_menu() {
+        if (function_exists('s_store_register_submenu')) {
+            s_store_register_submenu('delivery-calendar', 'تقویم ارسال', [$this, 'settings_page'], 'manage_woocommerce', 'تقویم ارسال');
+            return;
+        }
         add_submenu_page(
             'woocommerce',
             'تقویم ارسال',
